@@ -7,7 +7,7 @@
 <meta name="description" content="Ameya, second-year EXTC student. Robot learning, computer vision and 3D reconstruction.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <script>
   (function () {
     var t = null;
@@ -22,14 +22,14 @@
 <style>
   :root {
     --bg: #f3efe4; --text: #14181a; --muted: #59605f; --line: rgba(20,24,26,.14); --panel: #eae5d6;
-    --accent: #7c3aed; --on-accent: #ffffff; --paper: #fbf9f2;
-    --display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --accent: #7654d6; --on-accent: #ffffff; --paper: #fbf9f2;
+    --display: 'Instrument Serif', Georgia, serif;
     --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   }
   [data-theme="dark"] {
     --bg: #1c2123; --text: #ece8dc; --muted: #9ba2a2; --line: rgba(236,232,220,.14); --panel: #232a2c;
-    --accent: #b794f6; --on-accent: #1c0f3a; --paper: #ece6d3;
+    --accent: #b99af8; --on-accent: #1c0f3a; --paper: #ece6d3;
   }
   * { box-sizing: border-box; margin: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 90px; }
@@ -38,7 +38,7 @@
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   [hidden] { display: none !important; }
   .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: .09em; font-size: .72rem; }
-  h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.035em; line-height: 1.04; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.035em; line-height: 1.04; }
   .blue { color: var(--accent); } i.blue, em.blue { font-style: normal; }
 
   /* nav */
@@ -59,18 +59,23 @@
   .wrap { width: min(1120px, 100%); margin: 0 auto; }
   .eyebrow { color: var(--muted); margin-bottom: 18px; }
 
-  .proj-name { display: flex; align-items: baseline; gap: 18px; font-family: var(--display); font-weight: 500; font-style: normal; font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1; letter-spacing: -.03em; color: var(--accent); margin-bottom: 18px; }
+  .proj-name { display: flex; align-items: baseline; gap: 18px; font-family: var(--display); font-weight: 400; font-style: normal; font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1; letter-spacing: -.03em; color: var(--accent); margin-bottom: 18px; }
   .proj-name .num { font-style: normal; font-size: .8rem; letter-spacing: .12em; color: var(--muted); }
 
   /* hero */
   #about { display: flex; align-items: center; padding-top: 110px; padding-bottom: 48px; }
-  .hero { display: grid; grid-template-columns: 1fr; align-items: center; }
-  .frame { position: relative; width: 168px; aspect-ratio: 4 / 5; margin: 6px 0 34px 6px; rotate: -3.5deg; border-radius: 6px; overflow: hidden; background: #2a3033; border: 1px solid var(--line); box-shadow: 0 22px 40px -20px rgba(0,0,0,.6); }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); grid-template-areas: "copy photo"; gap: clamp(40px, 7vw, 100px); align-items: center; }
+  .hero-copy { grid-area: copy; min-width: 0; }
+  .hero-hello { font-family: var(--display); font-weight: 400; font-size: clamp(4.8rem, 8.2vw, 7.2rem); line-height: .98; letter-spacing: -.045em; margin: 0 0 22px -3px; }
+  .hero-hello .blue { color: var(--accent); }
+  .hero-intro { font-family: var(--display); font-size: clamp(1.9rem, 3.1vw, 2.65rem); line-height: 1.16; letter-spacing: -.025em; color: var(--text); max-width: 48ch; margin-top: 0; }
+  .hero-intro .blue { color: var(--accent); }
+  .frame { grid-area: photo; position: relative; justify-self: end; width: min(100%, 430px); aspect-ratio: 4 / 5; margin: 8px 10px 8px 0; rotate: -2deg; border-radius: 12px; overflow: hidden; background: #2a3033; border: 1px solid var(--line); box-shadow: 0 26px 55px -24px rgba(0,0,0,.65), 0 0 0 7px color-mix(in srgb, var(--accent) 9%, transparent); }
   .frame .ph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--accent); font: 400 3.6rem var(--display); }
-  .frame .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  h1 { font-size: clamp(2.1rem, 4.3vw, 3.1rem); line-height: 1.1; }
-  .hero p { color: var(--muted); max-width: 46ch; margin-top: 18px; }
-  .hero p.first { color: var(--text); margin-top: 26px; }
+  .frame .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .frame:hover .ph img { transform: scale(1.045); }
+  .hero p { color: var(--muted); max-width: 48ch; margin-top: 18px; }
+  .hero p.first { color: var(--muted); margin-top: 18px; }
   .link-arrow { display: inline-flex; align-items: center; gap: 12px; margin-top: 34px; color: var(--accent); text-decoration: none; font-weight: 500; }
   .ar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); transition: transform .35s cubic-bezier(.3,.7,.2,1); flex-shrink: 0; }
   .ar svg { width: 17px; height: 17px; }
@@ -133,7 +138,7 @@
   .contact-top p { color: var(--muted); max-width: 38ch; }
   .rows { margin-top: 64px; border-top: 1px solid var(--line); }
   .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 4px; border-bottom: 1px solid var(--line); text-decoration: none; transition: padding .25s, color .25s; }
-  .row b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.02em; }
+  .row b { font-family: var(--display); font-weight: 400; font-size: 1.5rem; letter-spacing: -.02em; }
   .row span { color: var(--muted); text-transform: none; letter-spacing: .02em; }
   .row:hover { padding-left: 14px; color: var(--accent); }
   footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); }
@@ -148,6 +153,9 @@
   @media (max-width: 860px) {
     .links.mono { font-size: .64rem; letter-spacing: .05em; }
     .hero, .pcard, .contact-top { grid-template-columns: 1fr; }
+    .hero { grid-template-areas: "copy" "photo"; gap: 34px; }
+    .hero-hello { font-size: clamp(4.2rem, 14vw, 6rem); }
+    .frame { grid-area: photo; justify-self: center; width: min(78%, 380px); max-width: 380px; margin: 0 auto 12px; }
     .polaroid { justify-self: center; max-width: 300px; }
     #about { align-items: flex-start; }
   }
@@ -168,13 +176,14 @@
 <main>
   <section id="about">
     <div class="wrap hero">
-      <div>
-        <div class="frame" data-r><div class="ph">A<img src="assests/me.jpeg" alt="Portrait of Ameya" onerror="this.remove()"></div></div>
-        <h1 data-r>I'm <span class="blue">Ameya</span>, a second-year EXTC student.</h1>
+      <div class="hero-copy">
+        <h1 class="hero-hello" data-r>Hello!</h1>
+        <p class="hero-intro" data-r>I am <span class="blue">Ameya</span> — second-year EXTC student.</p>
         <p class="first" data-r>I like taking ideas apart to see how they tick, then putting them back together a little better.</p>
         <p data-r>I'm drawn to robot learning, computer vision and machines that get better with every try. Lately that means turning real places into digital twins with Gaussian splatting.</p>
         <a class="link-arrow" href="#projects" data-r>explore my projects<span class="ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
       </div>
+      <div class="frame" data-r><div class="ph">A<img src="assests/me.jpeg" alt="Portrait of Ameya" onerror="this.remove()"></div></div>
     </div>
   </section>
 
@@ -293,5 +302,7 @@
   addEventListener('resize', upd); upd();
 })();
 </script>
+
+
 </body>
 </html>
