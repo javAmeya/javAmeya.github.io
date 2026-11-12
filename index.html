@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ameya · EXTC student</title>
+<meta name="description" content="Ameya, second-year EXTC student. Robot learning, computer vision and 3D reconstruction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    var d = document.documentElement;
+    d.setAttribute('data-theme', t);
+    d.classList.add('js');
+    d.setAttribute('data-motion', matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduce' : 'full');
+  })();
+</script>
+<style>
+  :root {
+    --bg: #ffffff; --text: #14181a; --muted: #59605f; --line: rgba(20,24,26,.14); --panel: #f4f4f5;
+    --accent: #7c3aed; --on-accent: #ffffff; --paper: #fbf9f2;
+    --display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1c2123; --text: #ece8dc; --muted: #9ba2a2; --line: rgba(236,232,220,.14); --panel: #232a2c;
+    --accent: #b794f6; --on-accent: #1c0f3a; --paper: #ece6d3;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 1.05rem; transition: background-color .3s, color .3s; overflow-x: hidden; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  [hidden] { display: none !important; }
+  .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: .09em; font-size: .72rem; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.035em; line-height: 1.04; }
+  .blue { color: var(--accent); } i.blue, em.blue { font-style: normal; }
+
+  /* nav */
+  nav { position: fixed; inset: 0 0 auto 0; z-index: 10; height: 72px; padding: 0 max(20px, 5vw); background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  nav::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 100%; height: 2px; background: var(--accent); transform: scaleX(var(--p, 0)); transform-origin: left; }
+  .navin { width: min(1120px, 100%); height: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { font-family: var(--sans); font-weight: 500; font-size: 1.15rem; letter-spacing: .06em; text-decoration: none; flex-shrink: 0; }
+  .links { display: flex; gap: clamp(12px, 3vw, 34px); flex: 1; min-width: 0; justify-content: safe center; overflow-x: auto; scrollbar-width: none; }
+  .links::-webkit-scrollbar { display: none; }
+  .links a { text-decoration: none; color: var(--muted); padding: 8px 0; white-space: nowrap; transition: color .2s; }
+  .links a:hover, .links a.active { color: var(--accent); }
+  .icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; display: grid; place-items: center; flex-shrink: 0; transition: border-color .2s; }
+  .icon-btn:hover { border-color: var(--accent); }
+  .icon-btn svg { width: 17px; height: 17px; }
+  .moon { display: none; } [data-theme="light"] .moon { display: block; } [data-theme="light"] .sun { display: none; }
+
+  section { padding: 120px max(20px, 5vw) 80px; }
+  .wrap { width: min(1120px, 100%); margin: 0 auto; }
+  .eyebrow { color: var(--muted); margin-bottom: 18px; }
+
+  .proj-name { display: flex; align-items: baseline; gap: 18px; font-family: var(--display); font-weight: 500; font-style: normal; font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1; letter-spacing: -.03em; color: var(--accent); margin-bottom: 18px; }
+  .proj-name .num { font-style: normal; font-size: .8rem; letter-spacing: .12em; color: var(--muted); }
+
+  /* hero */
+  #about { display: flex; align-items: center; padding-top: 110px; padding-bottom: 48px; }
+  .hero { display: grid; grid-template-columns: 1fr; align-items: center; }
+  .frame { position: relative; width: 168px; aspect-ratio: 4 / 5; margin: 6px 0 34px 6px; rotate: -3.5deg; border-radius: 6px; overflow: hidden; background: #2a3033; border: 1px solid var(--line); box-shadow: 0 22px 40px -20px rgba(0,0,0,.6); }
+  .frame .ph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--accent); font: 400 3.6rem var(--display); }
+  .frame .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  h1 { font-size: clamp(2.1rem, 4.3vw, 3.1rem); line-height: 1.1; }
+  .hero p { color: var(--muted); max-width: 46ch; margin-top: 18px; }
+  .hero p.first { color: var(--text); margin-top: 26px; }
+  .link-arrow { display: inline-flex; align-items: center; gap: 12px; margin-top: 34px; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .ar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); transition: transform .35s cubic-bezier(.3,.7,.2,1); flex-shrink: 0; }
+  .ar svg { width: 17px; height: 17px; }
+  .link-arrow .ar { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); transition: transform .3s, background .25s, color .25s; }
+  .link-arrow:hover .ar { background: var(--accent); color: var(--on-accent); transform: translateY(4px); }
+
+  /* quote strip */
+  .quote { border-block: 1px solid var(--line); padding: 34px max(20px, 5vw); }
+  .quote .wrap { display: flex; gap: 22px; align-items: flex-start; }
+  .quote .mark { font-family: var(--display); font-style: normal; font-size: 4.2rem; line-height: .75; color: var(--accent); flex-shrink: 0; }
+  .quote p { font-family: var(--display); font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.25; letter-spacing: -.01em; }
+  .quote p em { display: block; font-style: normal; color: var(--accent); }
+
+  /* projects */
+  h2 { font-size: clamp(2.6rem, 6vw, 4.6rem); }
+  .pcard { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: center; margin-top: 44px; padding: clamp(24px, 4vw, 48px); border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(120deg, transparent 35%, color-mix(in srgb, var(--accent) 9%, transparent)); }
+  .chip { display: flex; align-items: center; gap: 12px; color: var(--muted); margin-bottom: 18px; }
+  .chip b { font-weight: 400; background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent); padding: 2px 8px; border-radius: 4px; }
+  .pcard h3 { font-size: clamp(2.2rem, 4.4vw, 3.3rem); }
+  .pcard .lead { color: var(--text); margin-top: 16px; font-weight: 500; }
+  .pcard .desc { color: var(--muted); margin-top: 10px; max-width: 46ch; }
+  .lnks { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; }
+  .lnks a, .lnks button { font: inherit; text-transform: none; letter-spacing: .02em; font-size: .8rem; font-family: var(--mono); background: none; border: 0; border-bottom: 1px solid var(--line); padding: 0 0 2px; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .2s, border-color .2s; }
+  .lnks .hl { color: var(--accent); border-color: var(--accent); }
+  .lnks a:hover, .lnks button:hover { color: var(--accent); border-color: var(--accent); }
+  .polaroid { position: relative; display: block; width: 100%; max-width: 330px; justify-self: end; padding: 12px 12px 14px; background: var(--paper); border: 0; border-radius: 3px; rotate: 2.5deg; cursor: pointer; text-align: center; box-shadow: 0 26px 46px -22px rgba(0,0,0,.7); transition: rotate .35s, transform .35s; }
+  .polaroid:hover { rotate: 0deg; transform: translateY(-4px) scale(1.02); }
+  .polaroid .shot { position: relative; display: block; aspect-ratio: 1 / 1.05; background: #0b0d0e; overflow: hidden; }
+  .polaroid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .polaroid .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .polaroid .play span { width: 44px; height: 44px; border-radius: 50%; background: #fbf9f2; color: #1c2123; display: grid; place-items: center; box-shadow: 0 8px 20px -8px rgba(0,0,0,.6); transition: transform .3s; }
+  .polaroid:hover .play span { transform: scale(1.12); }
+  .polaroid .play svg { width: 16px; height: 16px; margin-left: 2px; }
+  .polaroid .cap2 { display: block; margin-top: 14px; font: italic 400 .98rem/1.2 var(--sans); color: #4b5048; }
+  .about-p { margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--line); max-width: 70ch; color: var(--muted); font-size: 1.12rem; }
+  .lb { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(8,10,11,.86); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .lbin { position: relative; width: min(1100px, 100%); }
+  .lbin video { width: 100%; display: block; border-radius: 10px; background: #000; max-height: 78vh; }
+  .lbx { position: absolute; top: -48px; right: 0; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: transparent; color: #fff; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+  .lbx:hover { border-color: var(--accent); }
+  body.lock { overflow: hidden; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
+  .tags span { border: 1px solid var(--line); padding: 5px 10px; color: var(--muted); border-radius: 999px; }
+  .btn { display: inline-flex; align-items: center; gap: 18px; margin-top: 28px; padding: 6px 6px 6px 26px; border-radius: 999px; font: 500 1rem/1 var(--sans); background: var(--accent); color: var(--on-accent); text-decoration: none; transition: transform .25s, box-shadow .25s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px var(--accent); }
+  .btn .ar { background: var(--on-accent); color: var(--accent); width: 42px; height: 42px; }
+  .btn:hover .ar { transform: rotate(45deg); }
+  .btn.gh:hover .ar { transform: scale(1.1); } .btn.gh .ar svg { width: 20px; height: 20px; }
+
+  /* exploring */
+  .explore { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 48px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .explore div { padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-height: 200px; transition: background .25s; }
+  .explore div:hover { background: var(--panel); }
+  .explore .n { color: var(--accent); }
+  .explore h3 { font-size: 1.7rem; margin: 20px 0 8px; }
+  .explore p { color: var(--muted); font-size: .95rem; }
+
+  /* contact */
+  .contact-top { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: end; }
+  .contact-top p { color: var(--muted); max-width: 38ch; }
+  .rows { margin-top: 64px; border-top: 1px solid var(--line); }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 4px; border-bottom: 1px solid var(--line); text-decoration: none; transition: padding .25s, color .25s; }
+  .row b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.02em; }
+  .row span { color: var(--muted); text-transform: none; letter-spacing: .02em; }
+  .row:hover { padding-left: 14px; color: var(--accent); }
+  footer { text-align: center; padding: 30px 20px 50px; color: var(--muted); }
+
+  /* scroll reveal */
+  .js [data-r] { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1), background .25s; transition-delay: var(--d, 0s); }
+  .js [data-r].in { opacity: 1; transform: none; }
+  html[data-motion="reduce"] [data-r] { transform: none !important; }
+  html[data-motion="reduce"] .polaroid { rotate: 0deg; transition: none; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  @media (max-width: 860px) {
+    .links.mono { font-size: .64rem; letter-spacing: .05em; }
+    .hero, .pcard, .contact-top { grid-template-columns: 1fr; }
+    .polaroid { justify-self: center; max-width: 300px; }
+    #about { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<nav><div class="navin">
+  <a class="logo" href="#about">AMEYA</a>
+  <div class="links mono" id="links">
+    <a href="#about">About me</a><a href="#projects">Projects</a><a href="#exploring">Exploring</a><a href="#contact">Contact</a>
+  </div>
+  <button class="icon-btn" id="theme" aria-label="Toggle light and dark theme">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</div></nav>
+
+<main>
+  <section id="about">
+    <div class="wrap hero">
+      <div>
+        <div class="frame" data-r><div class="ph">A<img src="assests/me.jpeg" alt="Portrait of Ameya" onerror="this.remove()"></div></div>
+        <h1 data-r>I'm <span class="blue">Ameya</span>, a second-year EXTC student.</h1>
+        <p class="first" data-r>I like taking ideas apart to see how they tick, then putting them back together a little better.</p>
+        <p data-r>I'm drawn to robot learning, computer vision and machines that get better with every try. Lately that means turning real places into digital twins with Gaussian splatting.</p>
+        <a class="link-arrow" href="#projects" data-r>explore my projects<span class="ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="quote" data-r>
+    <div class="wrap"><span class="mark" aria-hidden="true">“</span>
+      <p>a robot that misses, adjusts and tries again is already learning.<em>so am i, one attempt at a time.</em></p>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="wrap">
+      <p class="proj-name" data-r><span class="num mono">01</span>Splaterra</p>
+      <p class="eyebrow mono" data-r>Robotics · Computer vision · 3D reconstruction</p>
+
+      <div class="pcard" data-r>
+        <div>
+          <p class="chip mono"><b>001</b> digital twin</p>
+          <h3>Splaterra</h3>
+          <p class="lead">A real place, rebuilt in 3D.</p>
+          <p class="desc">Video of the <b style="color:var(--text);font-weight:500">VJTI campus</b> becomes a scene you can explore, using Gaussian splatting.</p>
+          <div class="lnks">
+            <button type="button" class="hl" id="openLnk">Watch it fly &#8599;</button>
+            <a href="https://blog.sravjti.in/2026/10/02/scaling-gaussian-splatting-to-longer-contexts.html" target="_blank" rel="noopener">read the blog &#8599;</a>
+            <a href="https://github.com/javAmeya/splaterra" target="_blank" rel="noopener">code &#8599;</a>
+          </div>
+        </div>
+        <button class="polaroid" id="openVid" type="button" aria-label="Play the Splaterra walkthrough video">
+          <span class="shot"><img src="assests/twin-poster.png" alt="" onerror="this.remove()"><span class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span></span></span>
+          <span class="cap2">a place, rebuilt from video.</span>
+        </button>
+      </div>
+
+      <p class="about-p" data-r>Splaterra is a 3D reconstruction project for long camera trajectories. It turns campus walkthrough videos into photorealistic, interactive 3D scenes using Gaussian splatting, camera pose estimation and depth prediction, keeping quality consistent along the whole path. It suits robotics, autonomous navigation, embodied AI and digital twins.</p>
+    </div>
+  </section>
+
+  <section id="exploring">
+    <div class="wrap">
+      <p class="eyebrow mono" data-r>Always in progress</p>
+      <h2 data-r>currently <i class="blue">exploring</i></h2>
+      <div class="explore">
+        <div data-r><span class="n mono">01</span><h3>Robot learning</h3><p>Policies that improve with experience.</p></div>
+        <div data-r style="--d:.08s"><span class="n mono">02</span><h3>Computer vision</h3><p>Making cameras useful to robots.</p></div>
+        <div data-r style="--d:.16s"><span class="n mono">03</span><h3>Embedded</h3><p>Firmware that runs on real hardware.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-top">
+        <h2 data-r>got an <i class="blue">idea?</i></h2>
+        <div data-r style="--d:.1s">
+          <p>Want to build something together, trade notes on robot learning, or just say hi? My inbox is open.</p>
+          <a class="btn" href="mailto:ameya.javery@gmail.com">Say hello<span class="ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+        </div>
+      </div>
+      <div class="rows" data-r>
+        <a class="row" href="mailto:ameya.javery@gmail.com"><b>Email</b><span class="mono">ameya.javery@gmail.com ↗</span></a>
+        <a class="row" href="https://github.com/javAmeya"><b>GitHub</b><span class="mono">javAmeya ↗</span></a>
+        <a class="row" href="https://www.linkedin.com/in/ameya-javery-3849133a1/"><b>LinkedIn</b><span class="mono">Ameya Javery ↗</span></a>
+        <a class="row" href="https://x.com/javer4299"><b>X / Twitter</b><span class="mono">@javer4299 ↗</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Splaterra walkthrough video">
+  <div class="lbin">
+    <button class="lbx" id="lbx" type="button" aria-label="Close video">&times;</button>
+    <video id="reel" controls playsinline preload="none" poster="assests/twin-poster.png"><source src="assests/reconstruction.mp4" type="video/mp4"></video>
+  </div>
+</div>
+<footer class="mono">© <span id="yr"></span> Ameya</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, reduce = root.getAttribute('data-motion') === 'reduce';
+
+  /* theme */
+  document.getElementById('theme').addEventListener('click', function () {
+    var n = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', n);
+    try { localStorage.setItem('theme', n); } catch (e) {}
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* nav highlight */
+  var navLinks = document.querySelectorAll('.links a');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); }); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['about', 'projects', 'exploring', 'contact'].forEach(function (id) { io.observe(document.getElementById(id)); });
+
+  /* scroll reveal */
+  var rv = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('[data-r]').forEach(function (el, i) { rv.observe(el); });
+
+  /* video lightbox: opens on click, closes on x / backdrop / Esc */
+  var lb = document.getElementById('lb'), v = document.getElementById('reel'), lbx = document.getElementById('lbx'), openers = [document.getElementById('openVid'), document.getElementById('openLnk')], opener = null;
+  function openLb(e) {
+    opener = e.currentTarget; lb.hidden = false; document.body.classList.add('lock');
+    var pr = v.play(); if (pr) pr.catch(function () {});
+    lbx.focus();
+  }
+  function closeLb() { v.pause(); lb.hidden = true; document.body.classList.remove('lock'); if (opener) opener.focus(); }
+  openers.forEach(function (b) { b.addEventListener('click', openLb); });
+  lbx.addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+
+  var tick = false;
+  function upd() { tick = false; root.style.setProperty('--p', scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)); }
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  addEventListener('resize', upd); upd();
+})();
+</script>
+</body>
+</html>
